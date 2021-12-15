@@ -7,7 +7,7 @@ database = "classicmodels")
 
 cur = conn.cursor()
 
-# query1 = "show tables"
+query1 = "show tables"
 # query2 = "select*from customers"
 # query3 = "desc payments"
 # query4 = "INSERT INTO payments(customerNumber, checkNumber, paymentDate, amount) VALUES(%s,%s,%s,%s)"
@@ -21,9 +21,9 @@ cur = conn.cursor()
 # query11 = "select distinct productCode from orderdetails"
 # query12 = "select sum(quantityOrdered) from orderDetails where productCode='S700_3505'"
 # query13 = "SELECT * FROM Customers ORDER BY Country, CustomerName"
-query14 = "SELECT * FROM customers ORDER BY country ASC, customerName DESC"
+# query14 = "SELECT * FROM customers ORDER BY country ASC, customerName DESC"
 
-cur.execute(query14)
+cur.execute(query1)
 
 for x in cur:
     print(x)
