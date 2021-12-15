@@ -1,7 +1,7 @@
 # lets integrate MySQL with python
 # initially install package mysql and then import mysql.connector as msql
 
-import mysql.connector as msql #we use msql in further codes
+import mysql.connector as msql#we use msql in further codes
 
 # create connection
 # give a name to connection
@@ -11,7 +11,7 @@ conn = msql.connect(host='localhost',
     database = 'sqlnew')
 
 # next is create cursor :
-my_cursor = conn.cursor()
+my_cursor = conn.cursor(buffered = True)
 
 # we want to connect csv file with SQL and edit using python
 # firstly, install csv file. we use employees.csv file he
@@ -53,10 +53,43 @@ df1=pd.DataFrame(data)
 # print(df1)
 
 # insert data using for loop
-for row in df1.itertuples():
-    query5 = "INSERT INTO student(ID, name, CLASS, Email, gender, residence, subs) VALUES(%s, %s, %s, %s, %s, %s, %s)"
-    val1 = (row.User_ID,row.User_Name,row.Class,row.User_Email_ID,row.Gender,row.Residence,row.Subscription)
-    my_cursor.execute(query5,val1)
+# for row in df1.itertuples():
+    # query5 = "INSERT INTO student(ID, name, CLASS, Email, gender, residence, subs) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+    # val1 = (row.User_ID,row.User_Name,row.Class,row.User_Email_ID,row.Gender,row.Residence,row.Subscription)
+    # my_cursor.execute(query5,val1)
+
+# show data -  to get data in tabular form same as SQL, use read_sql_query comman and pass conn inside it.
+# query6 = pd.read_sql_query("select*from student",conn)
+
+# after that, create dataframe using pandas and providing the column names as the SQL table
+# d = (pd.DataFrame(query6, columns=['ID', 'name', 'CLASS', 'Email', 'gender', 'residence', 'subs']))
+# print(d)
+
+# update data 
+# query7 = "INSERT INTO student(ID, name, CLASS, Email, gender, residence, subs) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+# val2 = (24, "tiya", 9, "abc@gmail.com", "Female", "day boarding", "no")
+# my_cursor.execute(query7, val2)
+
+# show data -  to get data in tabular form same as SQL, use read_sql_query comman and pass conn inside it.
+# query8 = pd.read_sql_query("select*from student",conn)
+
+# after that, create dataframe using pandas and providing the column names as the SQL table
+# d = (pd.DataFrame(query8, columns=['ID', 'name', 'CLASS', 'Email', 'gender', 'residence', 'subs']))
+# print(d)
+
+# update existing data
+# query9 = "update student SET gender = 'F' WHERE gender = 'Female'"
+# my_cursor.execute(query9)
+
+# delete a record
+query10 = "delete from student WHERE CLASS = 9"
+my_cursor.execute(query10)
+
+query8 = pd.read_sql_query("select*from student",conn)
+
+# after that, create dataframe using pandas and providing the column names as the SQL table
+d = (pd.DataFrame(query8, columns=['ID', 'name', 'CLASS', 'Email', 'gender', 'residence', 'subs']))
+print(d)
 
 
 conn.commit()
